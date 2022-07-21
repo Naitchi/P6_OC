@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/bf63fdfe50.js" crossorigin="anonymous"></script>
+  <title>Fisheye - photographe</title>
+</head>
+
+<body>
+  <header>
+    <a href="./index.html"><img src="assets/images/logo.png" class="logo" /></a>
+  </header>
+  <div id="main">
+    <div class="photograph-header">
+      <button class="contact_button contact_modal_button" onclick="displayModal()">
+        Contactez-moi
+      </button>
+    </div>
+    <p class="trier">Trier par</p>
+    <div id="Order">
+      <div id="orderActivited" class="orderActivited">
+        <p id="Activited" tabindex="0" class="choice">Titre</p>
+        <i id="Arrow" class="fa-solid fa-chevron-right fa-rotate-90" style="color:#ffffff"></i>
+      </div>
+      <div id="MoreChoice" class="hide">
+        <div class="separator"></div>
+        <p id="Choice2" tabindex="0" class="choice">Date</p>
+        <div class="separator"></div>
+        <p id="Choice3" tabindex="0" class="choice">Popularité</p>
+      </div>
+    </div>
+  </div>
+  <div id="contact_modal">
+    <div class="modal">
+      <header>
+        <h2 id="h2">Contactez-moi</h2>
+        <img src="assets/icons/close.svg" onclick="closeModal()" />
+      </header>
+      <div class="form">
+        <div id="form">
+          <label>Prénom</label>
+          <input id="prenom" />
+        </div>
+        <button id="send" class="contact_button">Envoyer</button>
+      </div>
+    </div>
+  </div>
+  <div id="photo_modal">
+    <img src="assets/icons/Vector.svg" class="cross" onclick="closePhotoModal()" />
+    <div class="contenerImage">
+      <i id="back" tabindex="0" class="fa-solid fa-chevron-left fa-5x" style="color:#911C1C"></i>
+      <div id="img-contener"></div>
+      <i id="front" tabindex="0" class="fa-solid fa-chevron-right fa-5x" style="color:#911C1C"></i>
+    </div>
+  </div>
+  <div id="fix"></div>
+
+  <script src="scripts/factories/Photographer.js"></script>
+  <script src="scripts/factories/photo.js"></script>
+
+  <script src="/scripts/utils/contactForm.js"></script>
+  <script src="./scripts/pages/photographer.js"></script>
+</body>
+
+</html>
