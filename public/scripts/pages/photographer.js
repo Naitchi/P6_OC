@@ -275,11 +275,26 @@ document.addEventListener('keydown', function (e) {
   if (e.key === 'ArrowRight') nextPhoto();
 });
 document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') closePhotoModal();
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') closeModal();
+});
+document.addEventListener('keydown', function (e) {
   if (e.key === 'ArrowLeft') previousPhoto();
 });
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' && activated == document.activeElement) toggleDropDown();
+});
 activated.addEventListener('click', toggleDropDown);
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' && choice2 == document.activeElement) clickAChoice(2, choice2.innerHTML);
+});
 choice2.addEventListener('click', function () {
   clickAChoice(2, choice2.innerHTML);
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' && choice3 == document.activeElement) clickAChoice(3, choice3.innerHTML);
 });
 choice3.addEventListener('click', function () {
   clickAChoice(3, choice3.innerHTML);
