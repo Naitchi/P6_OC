@@ -4,3 +4,10 @@
 
 Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.
 
+pour lancer le serveur :
+
+npm run serve
+
+pour lancer l'eslint :
+
+npx eslint public/scripts/** 

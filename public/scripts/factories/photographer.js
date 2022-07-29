@@ -1,4 +1,4 @@
-function photographerFactory(data) {
+export function photographerFactory(data) {
   const { name, portrait, city, country, tagline, price, id } = data;
 
   const picture = `assets/photographers/${portrait}`;
@@ -33,7 +33,6 @@ function photographerFactory(data) {
   }
 
   function leftPartHeader() {
-    console.log(name);
     const contener = document.createElement('div');
     const h1 = document.createElement('h1');
     h1.textContent = name;
@@ -48,7 +47,6 @@ function photographerFactory(data) {
     contener.appendChild(place);
     contener.appendChild(desc);
 
-    console.log(contener);
     return contener;
   }
 

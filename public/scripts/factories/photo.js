@@ -1,4 +1,6 @@
-function photoFactory(data) {
+import { displayPhotoModal } from '../utils/contactForm.js';
+
+export function photoFactory(data, mediasArray) {
   const { date, id, image, likes, photographerId, price, title, video } = data;
 
   const picture = `assets/media/${image}`;
@@ -43,7 +45,7 @@ function photoFactory(data) {
 
       img.id = id;
       img.classList.add('photo');
-      img.addEventListener('click', (e) => displayPhotoModal(e));
+      img.addEventListener('click', (e) => displayPhotoModal(e, mediasArray));
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' && img == document.activeElement) displayPhotoModal({ target: img });
       });

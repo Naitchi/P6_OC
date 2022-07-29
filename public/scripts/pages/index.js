@@ -1,5 +1,7 @@
+import { photographerFactory } from '../factories/photographer.js';
+
 const getPhotographers = () => {
-  return fetch("../../data/photographers.json")
+  return fetch('../../data/photographers.json')
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -8,13 +10,12 @@ const getPhotographers = () => {
       }
     })
     .then((json) => {
-      console.log(json);
       return json.photographers;
     });
 };
 
 function displayData(photographers) {
-  const photographersSection = document.querySelector(".photographer_section");
+  const photographersSection = document.querySelector('.photographer_section');
 
   photographers.forEach((photographer) => {
     const photographerModel = photographerFactory(photographer);

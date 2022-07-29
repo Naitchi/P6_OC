@@ -1,9 +1,16 @@
+import { photographerFactory } from '../factories/photographer.js';
+import { photoFactory } from '../factories/photo.js';
+import { closePhotoModal, closeModal, displayModal } from '../utils/contactForm.js';
+
 //Mettre le code JavaScript lié à la page photographer.html
 const url = new URL(window.location.href);
 const id = url.searchParams.get('id');
 let mediasArray = [];
 const back = document.getElementById('back');
 const front = document.getElementById('front');
+const contact = document.getElementById('contact');
+const cross2 = document.getElementById('cross2');
+const cross = document.getElementById('cross');
 
 const arrow = document.getElementById('Arrow');
 const moreChoice = document.getElementById('MoreChoice');
@@ -25,7 +32,6 @@ const getPhotographer = () => {
       }
     })
     .then((json) => {
-      console.log(json.photographers.filter((e) => e.id == id));
       return json.photographers.filter((e) => e.id == id);
     });
 };
@@ -39,7 +45,6 @@ const getMediaOfAPhotographer = () => {
       }
     })
     .then((json) => {
-      console.log(json.media.filter((e) => e.photographerId == id));
       return json.media.filter((e) => e.photographerId == id);
     });
 };
@@ -78,7 +83,7 @@ function displayMedias(medias) {
   mediasSection.id = 'mediasSection';
   var count = 0;
   medias.forEach((media) => {
-    const mediaModel = photoFactory(media);
+    const mediaModel = photoFactory(media, mediasArray);
     const pictureCardDOM = mediaModel.getPictureCardDOM(count);
     mediasSection.appendChild(pictureCardDOM);
     count++;
@@ -89,25 +94,22 @@ function displayMedias(medias) {
 
 const orderByPopularity = () => {
   mediasArray.sort((a, b) => b.likes - a.likes);
-  console.log(mediasArray);
   displayMedias(mediasArray);
 };
 const orderByDate = () => {
   mediasArray.sort((a, b) => {
     return ('' + b.date).localeCompare(a.date);
   });
-  console.log(mediasArray);
   displayMedias(mediasArray);
 };
 const orderByTitle = () => {
   mediasArray.sort((a, b) => {
     return ('' + a.title).localeCompare(b.title);
   });
-  console.log(mediasArray);
   displayMedias(mediasArray);
 };
 
-const nextPhoto = (e) => {
+const nextPhoto = () => {
   if (document.getElementById('CARD')) {
     const card = document.getElementById('CARD');
     var index = card.getAttribute('index');
@@ -131,7 +133,6 @@ const nextPhoto = (e) => {
       item.muted = true;
       divImage.appendChild(item);
     } else {
-      console.log(`assets/media/${itemData.image}`);
       const item = document.createElement('img');
       item.id = 'CARD';
       item.setAttribute('src', `assets/media/${itemData.image}`);
@@ -140,7 +141,7 @@ const nextPhoto = (e) => {
     }
   }
 };
-const previousPhoto = (e) => {
+const previousPhoto = () => {
   if (document.getElementById('CARD')) {
     const card = document.getElementById('CARD');
     var index = card.getAttribute('index');
@@ -180,7 +181,6 @@ const toggleDropDown = () => {
   moreChoice.classList.toggle('hide');
 };
 const clickAChoice = (choice, clickedOn) => {
-  console.log(clickedOn);
   if (clickedOn === 'Popularité') {
     orderByPopularity();
     if (choice === 2) choice2.innerHTML = activated.innerHTML;
@@ -202,7 +202,6 @@ const clickAChoice = (choice, clickedOn) => {
 
 const total = (medias) => {
   const total = document.getElementById('total');
-  console.log(medias);
   total.innerHTML = medias.reduce((count, item) => count + item.likes, 0);
 };
 
@@ -216,7 +215,6 @@ const createInput = (inputClass, id, type, name) => {
 };
 
 const createLabel = (labelClass, id, link, content) => {
-  console.log('in the label creation');
   const label = document.createElement('label');
   if (labelClass) label.classList.add(labelClass);
   if (id) label.id = id;
@@ -268,7 +266,6 @@ function init() {
 
 init();
 
-//Order.addEventListener("click", orderDropDown);
 front.addEventListener('click', nextPhoto);
 back.addEventListener('click', previousPhoto);
 document.addEventListener('keydown', function (e) {
@@ -300,3 +297,15 @@ choice3.addEventListener('click', function () {
   clickAChoice(3, choice3.innerHTML);
 });
 send.addEventListener('click', sendForm);
+contact.addEventListener('click', displayModal);
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' && contact == document.activeElement) displayModal();
+});
+cross2.addEventListener('click', closeModal);
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' && cross2 == document.activeElement) closeModal();
+});
+cross.addEventListener('click', closePhotoModal);
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' && cross == document.activeElement) closePhotoModal();
+});
