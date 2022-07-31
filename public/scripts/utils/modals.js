@@ -1,14 +1,37 @@
 export function displayModal() {
   const modal = document.getElementById('contact_modal');
   modal.style.display = 'block';
+  const elements = document.querySelectorAll('[tabindex]');
+  elements.forEach((e) => {
+    if (
+      e.id === 'prenom' ||
+      e.id === 'name' ||
+      e.id === 'email' ||
+      e.id === 'message' ||
+      e.id === 'cross2' ||
+      e.id === 'send'
+    ) {
+      console.log(e);
+    } else e.setAttribute('tabindex', -1);
+  });
 }
 
 export function closeModal() {
   const modal = document.getElementById('contact_modal');
   modal.style.display = 'none';
+  const elements = document.querySelectorAll('[tabindex="-1"]');
+  elements.forEach((e) => {
+    e.setAttribute('tabindex', 0);
+  });
 }
 
 export function displayPhotoModal(e, mediasArray) {
+  const elements = document.querySelectorAll('[tabindex]');
+  elements.forEach((e) => {
+    if (e.id === 'front' || e.id === 'back' || e.id === 'cross') {
+      console.log(e);
+    } else e.setAttribute('tabindex', -1);
+  });
   const itemData = mediasArray[e.target.getAttribute('index')];
   const modal = document.getElementById('photo_modal');
   modal.style.display = 'flex';
@@ -45,6 +68,10 @@ export function displayPhotoModal(e, mediasArray) {
 }
 
 export function closePhotoModal() {
+  const elements = document.querySelectorAll('[tabindex="-1"]');
+  elements.forEach((e) => {
+    e.setAttribute('tabindex', 0);
+  });
   const modal = document.getElementById('photo_modal');
   modal.style.display = 'none';
 }

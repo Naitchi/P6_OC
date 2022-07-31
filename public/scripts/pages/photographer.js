@@ -1,8 +1,7 @@
 import { photographerFactory } from '../factories/photographer.js';
 import { photoFactory } from '../factories/photo.js';
-import { closePhotoModal, closeModal, displayModal } from '../utils/contactForm.js';
+import { closePhotoModal, closeModal, displayModal } from '../utils/modals.js';
 
-//Mettre le code JavaScript lié à la page photographer.html
 const url = new URL(window.location.href);
 const id = url.searchParams.get('id');
 let mediasArray = [];
@@ -57,13 +56,15 @@ function displayPhotographer(photographer) {
   const heart = document.createElement('p');
   const like = document.createElement('p');
   like.id = 'total';
+  like.setAttribute('tabindex', '0');
   heart.innerHTML = '♥';
+  heart.setAttribute('tabindex', '0');
   likebox.classList.add('likeBox');
   likebox.appendChild(like);
   likebox.appendChild(heart);
   const price = document.createElement('p');
   price.innerHTML = `${photographer[0].price}€ / jour`;
-
+  price.setAttribute('tabindex', '0');
   const photographerModel = photographerFactory(photographer[0]);
   const leftPart = photographerModel.leftPartHeader();
   const rightPart = photographerModel.rightPartHeader();
@@ -179,6 +180,11 @@ const toggleDropDown = () => {
   arrow.classList.toggle('fa-rotate-90');
   arrow.classList.toggle('fa-rotate-270');
   moreChoice.classList.toggle('hide');
+  if (moreChoice.classList.value === 'hide') {
+    activated.setAttribute('aria-expanded', 'false');
+  } else {
+    activated.setAttribute('aria-expanded', 'true');
+  }
 };
 const clickAChoice = (choice, clickedOn) => {
   if (clickedOn === 'Popularité') {
@@ -228,14 +234,17 @@ const initContactModal = (photographer) => {
   const labelName = createLabel('label', null, 'name', 'Nom');
   form.appendChild(labelName);
   const inputName = createInput('input', 'name', 'text', 'name');
+  inputName.setAttribute('aria-label', 'rentrez votre nom');
   form.appendChild(inputName);
   const labelEmail = createLabel('label', null, 'email', 'Email');
   form.appendChild(labelEmail);
   const inputEmail = createInput('input', 'email', 'text', 'email');
+  inputEmail.setAttribute('aria-label', 'rentrez votre email');
   form.appendChild(inputEmail);
   const labelMessage = createLabel('label', null, 'message', 'Votre message');
   form.appendChild(labelMessage);
   const inputMessage = createInput('input', 'message', 'text', 'message');
+  inputMessage.setAttribute('aria-label', 'rentrez votre message');
   inputMessage.classList.add('message');
   form.appendChild(inputMessage);
 };
@@ -244,11 +253,11 @@ const sendForm = () => {
   const nom = document.getElementById('name');
   const email = document.getElementById('email');
   const message = document.getElementById('message');
+  console.log(prenom.value + ' ' + nom.value + ' ' + email.value + ' ' + message.value);
   prenom.value = '';
   nom.value = '';
   email.value = '';
   message.value = '';
-  alert('Message bien envoyé !');
 };
 
 function init() {
@@ -266,19 +275,27 @@ function init() {
 
 init();
 
-front.addEventListener('click', nextPhoto);
 back.addEventListener('click', previousPhoto);
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' && back == document.activeElement) previousPhoto();
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'ArrowLeft') previousPhoto();
+});
+
+front.addEventListener('click', nextPhoto);
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' && front == document.activeElement) nextPhoto();
+});
 document.addEventListener('keydown', function (e) {
   if (e.key === 'ArrowRight') nextPhoto();
 });
+
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape') closePhotoModal();
 });
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape') closeModal();
-});
-document.addEventListener('keydown', function (e) {
-  if (e.key === 'ArrowLeft') previousPhoto();
 });
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Enter' && activated == document.activeElement) toggleDropDown();

@@ -12,25 +12,26 @@
 
 <body>
   <header>
-    <a href="./index.html"><img src="assets/images/logo.png" class="logo" alt="logo" /></a>
+    <a tabindex="0" href="./index.html"><img src="assets/images/logo.png" class="logo" alt="logo" /></a>
   </header>
   <div id="main">
     <div class="photograph-header">
-      <button id="contact" class="contact_button contact_modal_button">
+      <button tabindex="0" id="contact" class="contact_button contact_modal_button">
         Contactez-moi
       </button>
     </div>
-    <p class="trier">Trier par</p>
+    <p class="trier" tabindex="0">Trier par</p>
     <div id="Order">
       <div id="orderActivited" class="orderActivited">
-        <p id="Activited" tabindex="0" class="choice">Titre</p>
-        <i id="Arrow" class="fa-solid fa-chevron-right fa-rotate-90" style="color:#ffffff"></i>
+        <p id="Activited" role="button" tabindex="0" aria-expanded="false" class="choice">
+          Titre</p>
+        <span id="Arrow" class="fa-solid fa-chevron-right fa-rotate-90" style="color:#ffffff"></span>
       </div>
       <div id="MoreChoice" class="hide">
         <div class="separator"></div>
-        <p id="Choice2" tabindex="0" class="choice">Date</p>
+        <p id="Choice2" role="button" tabindex="0" class="choice">Date</p>
         <div class="separator"></div>
-        <p id="Choice3" tabindex="0" class="choice">Popularité</p>
+        <p id="Choice3" role="button" tabindex="0" class="choice">Popularité</p>
       </div>
     </div>
   </div>
@@ -38,26 +39,27 @@
     <div class="modal">
       <header>
         <h2 id="h2">Contactez-moi</h2>
-        <img id="cross2" src="assets/icons/close.svg" alt="image pour fermer la modal" aria-label="fermer la modal" />
+        <img id="cross2" tabindex="0" src="assets/icons/close.svg" alt="image pour fermer la modal"
+          aria-label="fermer la modal" />
       </header>
       <div class="form">
         <div id="form">
           <label for="prenom">Prénom</label>
-          <input id="prenom" name="prenom" />
+          <input aria-label="rentrez votre prénom" id="prenom" name="prenom" />
         </div>
         <button id="send" class="contact_button">Envoyer</button>
       </div>
     </div>
   </div>
   <div id="photo_modal">
-    <img src="assets/icons/Vector.svg" id="cross" class="cross" alt="image pour fermer la modal"
+    <img src="assets/icons/Vector.svg" id="cross" tabindex="0" class="cross" alt="image pour fermer la modal"
       aria-label="fermer la modal" />
     <div class="contenerImage">
-      <i id="back" tabindex="0" class="fa-solid fa-chevron-left fa-5x" style="color:#911C1C"
-        aria-label="Image précedente"></i>
+      <span id="back" tabindex="0" class="fa-solid fa-chevron-left fa-5x" style="color:#911C1C"
+        aria-label="Image précedente"></span>
       <div id="img-contener"></div>
-      <i id="front" tabindex="0" class="fa-solid fa-chevron-right fa-5x" style="color:#911C1C"
-        aria-label="Image suivante"></i>
+      <span id="front" tabindex="0" class="fa-solid fa-chevron-right fa-5x" style="color:#911C1C"
+        aria-label="Image suivante"></span>
     </div>
   </div>
   <div id="fix"></div>

@@ -1,4 +1,4 @@
-import { displayPhotoModal } from '../utils/contactForm.js';
+import { displayPhotoModal } from '../utils/modals.js';
 
 export function photoFactory(data, mediasArray) {
   const { date, id, image, likes, photographerId, price, title, video } = data;
@@ -15,6 +15,8 @@ export function photoFactory(data, mediasArray) {
 
     const desc = document.createElement('p');
     desc.textContent = title;
+    desc.classList.add('description');
+    desc.setAttribute('tabindex', '0');
 
     const like = document.createElement('p');
     like.classList.add('like');
@@ -47,7 +49,8 @@ export function photoFactory(data, mediasArray) {
       img.classList.add('photo');
       img.addEventListener('click', (e) => displayPhotoModal(e, mediasArray));
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && img == document.activeElement) displayPhotoModal({ target: img });
+        if (e.key === 'Enter' && img == document.activeElement)
+          displayPhotoModal({ target: img }, mediasArray);
       });
       article.appendChild(img);
     } else if (video) {
@@ -58,13 +61,11 @@ export function photoFactory(data, mediasArray) {
       img.appendChild(source);
       img.setAttribute('index', count);
       img.setAttribute('tabindex', 0);
-      img.autoplay = true;
-      img.loop = true;
-      img.muted = true;
       img.classList.add('video');
-      img.addEventListener('click', (e) => displayPhotoModal(e));
+      img.addEventListener('click', (e) => displayPhotoModal(e, mediasArray));
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && img === document.activeElement) displayPhotoModal({ target: img });
+        if (e.key === 'Enter' && img === document.activeElement)
+          displayPhotoModal({ target: img }, mediasArray);
       });
       article.appendChild(img);
     }
